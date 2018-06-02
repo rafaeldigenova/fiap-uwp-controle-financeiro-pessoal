@@ -38,12 +38,16 @@
             <NavigationViewItemHeader Content="Minhas Finanças"/>
             <NavigationViewItem Content="Dashboard" Tag="dashboard">
                 <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xED56;"/>
+                    <FontIcon Glyph="&#xE80F;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Icon="Clock" Content="Extrato" Tag="statements"/>
-            <NavigationViewItem Icon="Clock" Content="Contas" Tag="accounts"/>
-            <NavigationViewItem Icon="Clock" Content="Transações" Tag="transactions"/>
+            <NavigationViewItem Content="Extrato" Tag="statements">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE7C3;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Icon="Calendar" Content="Contas" Tag="accounts"/>
+            <NavigationViewItem Icon="Link" Content="Transações" Tag="transactions"/>
         </NavigationView.MenuItems>
 
         <NavigationView.Content>
