@@ -7,7 +7,51 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <converters:TypeToObjectConverter x:Key="TypeToObject"/>
+        <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSource"/>
+        <converters:NullToBooleanConverter x:Key="NullToBoolean" />
+        <converters:NullToVisibilityConverter x:Key="NullToVisibility" />
+    </Page.Resources>
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Padding="12">
+            <StackPanel>
+                <TextBox Header="Título" Text="{x:Bind ViewModel.Receita.Titulo, Mode=TwoWay}" Margin="0,12"/>
+                <TextBox Header="Instruções" Text="{x:Bind ViewModel.Receita.Instrucoes, Mode=TwoWay}" AcceptsReturn="True" 
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         Height="200" Margin="0,12" />
+                <TextBox Header="Minutos para o preparo" Text="{x:Bind ViewModel.Receita.MinutosPreparo, Mode=TwoWay, Converter={StaticResource TypeToObject}}" Margin="0,12"/>
+                <ComboBox Header="Categoria" ItemsSource="{x:Bind ViewModel.Categorias}" SelectedItem="{x:Bind ViewModel.Receita.Categoria, Mode=TwoWay}">
+                    <DataTemplate x:DataType="models:Categoria">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind }" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox>
+                <TextBox Header="Preço" Text="{x:Bind ViewModel.Receita.Preco, Mode=TwoWay, Converter={StaticResource TypeToObject}}" Margin="0,12"/>
+                <StackPanel Margin="0,12">
+                    <Image Height="200" Source="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource ByteArrayToImageSource}}"
+                        Visibility="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource NullToVisibility}}" Margin="4"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Click="{x:Bind ViewModel.CarregarImagem}" Margin="100,0">
+                            <SymbolIcon Symbol="BrowsePhotos"/>
+                        </Button>
+                        <Button Click="{x:Bind ViewModel.ExcluirImagem}"
+                             IsEnabled="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource NullToBoolean}}">
+                            <SymbolIcon Symbol="Delete"/>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <CommandBar Grid.Row="1" Background="Transparent">
+            <AppBarButton Label="Compartilhar" Icon="Share" Click="{x:Bind ViewModel.CompartilharReceita}" />
+            <AppBarButton Label="Excluir" Icon="Delete" Click="{x:Bind ViewModel.ExcluirReceita}" />
+        </CommandBar>
     </Grid>
 </Page>
