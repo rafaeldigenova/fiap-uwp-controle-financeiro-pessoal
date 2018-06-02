@@ -35,7 +35,7 @@
         </NavigationView.HeaderTemplate>
 
         <NavigationView.MenuItems>
-            <NavigationViewItemHeader Content="Minhas Finanças"/>
+            <NavigationViewItemHeader Content="Minhas Finanças" Visibility="{x:Bind NavView.IsPaneOpen, Mode=OneWay}"/>
             <NavigationViewItem Content="Dashboard" Tag="dashboard">
                 <NavigationViewItem.Icon>
                     <FontIcon Glyph="&#xE80F;"/>

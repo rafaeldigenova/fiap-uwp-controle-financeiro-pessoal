@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FiapControleFinanceiro.Models.Abstracts;
+using System;
 
 namespace FiapControleFinanceiro.Models
 {
-    public class Transaction
+    public class Transaction : NotifyableClass
     {
         public int Id { get; set; }
 

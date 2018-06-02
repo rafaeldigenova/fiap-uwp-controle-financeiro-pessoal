@@ -1,4 +1,8 @@
-﻿using System;
+﻿using FiapControleFinanceiro.Models;
+using FiapControleFinanceiro.Models.Abstracts;
+using FiapControleFinanceiro.UWP.Repository;
+using FiapControleFinanceiro.UWP.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,86 +11,73 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace FiapControleFinanceiro.UWP.ViewModels
 {
-    public class TransactionCreationViewModel
+    public class TransactionCreationViewModel : NotifyableClass
     {
         public TransactionCreationViewModel()
         {
-            DataTransferManager.GetForCurrentView().DataRequested += EditarReceitaViewModel_DataRequested;
+            DataTransferManager.GetForCurrentView().DataRequested += EditarTransacaoViewModel_DataRequested;
         }
 
-        private EFReceitaRepository ReceitaRepository { get; set; } = EFReceitaRepository.Instance;
+        private EFTransactionsRepository TransactionRepository { get; set; } = EFTransactionsRepository.Instance;
 
-        private Receita _receita;
+        private Transaction _transaction;
 
-        public Receita Receita
+        public Transaction Transaction
         {
-            get { return _receita; }
-            set { Set(ref _receita, value); }
+            get { return _transaction; }
+            set { Set(ref _transaction, value); }
         }
 
         public bool RegistroExcluido { get; set; }
 
-        public IEnumerable<Categoria> Categorias => Receita.Categoria.GetValores<Categoria>();
+        //public IEnumerable<Categoria> Categorias => Receita.Categoria.GetValores<Categoria>();
 
-        public void CarregarReceita(Guid id)
+        public void CarregarTransacao(int id)
         {
-            Receita = ReceitaRepository.Items.FirstOrDefault(r => r.Id == id);
+            Transaction = TransactionRepository.Items.FirstOrDefault(x => x.Id == id);
 
-            if (Receita == null)
+            if (Transaction == null)
             {
-                Receita = new Receita();
+                Transaction = new Transaction();
             }
         }
 
-        public async void ExcluirReceita()
+        public async void ExcluirTransacao()
         {
-            await ReceitaRepository.ExcluirAsync(Receita);
+            await TransactionRepository.ExcluirAsync(Transaction);
             RegistroExcluido = true;
             NavigationService.GoBack();
         }
 
-        private void EditarReceitaViewModel_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        private void EditarTransacaoViewModel_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             DataRequest request = args.Request;
 
             StringBuilder text = new StringBuilder();
-            text.AppendLine($"Instruções: {Receita.Instrucoes}");
-            text.AppendLine($"Tempo de preparo: {Receita.MinutosPreparo} min");
+            text.AppendLine($"Data de Criação: {Transaction.CreatedDate}");
+            text.AppendLine($"Data de Processamento: {Transaction.ProcessmentDate}");
 
             request.Data.SetText(text.ToString());
-            request.Data.Properties.Title = $"App FIAPRecipes.UWP - {Receita.Titulo}";
+            request.Data.Properties.Title = $"Controle Financeiro - {Transaction.Id}";
         }
 
-        public void CompartilharReceita()
+        public void CompartilharTransacao()
         {
             DataTransferManager.ShowShareUI();
         }
 
-        public async void SalvarReceita()
+        public async void SalvarTransacao()
         {
-            if (ReceitaRepository.Items.Any(r => r.Id == Receita.Id))
+            if (TransactionRepository.Items.Any(r => r.Id == Transaction.Id))
             {
-                await ReceitaRepository.AtualizarAsync(Receita);
+                await TransactionRepository.AtualizarAsync(Transaction);
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(Receita.Titulo) && string.IsNullOrWhiteSpace(Receita.Instrucoes))
-                    return;
+                if (Transaction.Ammount == 0) return;
 
-                await ReceitaRepository.CriarAsync(Receita);
+                await TransactionRepository.CriarAsync(Transaction);
             }
-        }
-
-        public async void CarregarImagem()
-        {
-            var imageBytes = await StorageService.CarregarImagem();
-
-            Receita.ImagemBytes = imageBytes ?? Receita.ImagemBytes;
-        }
-
-        public void ExcluirImagem()
-        {
-            Receita.ImagemBytes = null;
         }
     }
 }
