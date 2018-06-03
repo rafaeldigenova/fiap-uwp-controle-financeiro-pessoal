@@ -15,6 +15,35 @@
     </UserControl.Resources>
 
     <Grid Margin="12">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroupMinWidth">
+                <VisualState x:Name="VisualStateMinWidth1">
+                    <VisualState.Setters>
+                        <Setter Target="lblProcessmentDate.(Visibility)" Value="Collapsed"/>
+                        <Setter Target="lblAccountName.(Grid.Column)" Value="0"/>
+                        <Setter Target="lblAccountName.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="lblAmmount.(Grid.Column)" Value="2"/>
+                        <Setter Target="lblAmmount.(Grid.ColumnSpan)" Value="1"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualStateMinWidth640Header">
+                    <VisualState.Setters>
+                        <Setter Target="lblAccountName.(Grid.Column)" Value="0"/>
+                        <Setter Target="lblAccountName.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="lblProcessmentDate.(Grid.Column)" Value="1"/>
+                        <Setter Target="lblProcessmentDate.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="lblAmmount.(Grid.Column)" Value="2"/>
+                        <Setter Target="lblAmmount.(Grid.ColumnSpan)" Value="1"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>

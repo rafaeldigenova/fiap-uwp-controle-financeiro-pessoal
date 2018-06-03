@@ -23,6 +23,8 @@ namespace FiapControleFinanceiro.UWP
 
             NavigationService.Frame = ContentFrame;
             NavigationService.Navigated += On_Navigated;
+
+            NavigationService.Navigate<DashboardPage>();
         }
 
 
