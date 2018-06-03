@@ -6,7 +6,10 @@ using FiapControleFinanceiro.UWP.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Xaml.Controls;
+using System;
 
 namespace FiapControleFinanceiro.UWP.ViewModels
 {
@@ -43,9 +46,28 @@ namespace FiapControleFinanceiro.UWP.ViewModels
 
         public async void DeleteAccount()
         {
-            await AccountRepository.ExcluirAsync(Account);
-            RegistroExcluido = true;
-            NavigationService.GoBack();
+            ContentDialog deleteDialog = new ContentDialog
+            {
+                Title = "Excluir conta permanentemente?",
+                Content = "Se você excluir sua conta, os dados associados a ela serão perdidos. Deseja Continuar?",
+                PrimaryButtonText = "Excluir",
+                CloseButtonText = "Cancel"
+            };
+
+            ContentDialogResult result = await deleteDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                await AccountRepository.ExcluirAsync(Account);
+                RegistroExcluido = true;
+
+                string title = "Conta excluída com sucesso!";
+                string content = $"Sua conta {Account.Name} foi excluida com sucesso.";
+
+                NotificationService.SendNotification(title, content, "CF-001", "Transaction", 1);
+
+                NavigationService.GoBack();
+            }
         }
 
         private void EditarAccountViewModel_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -73,6 +95,11 @@ namespace FiapControleFinanceiro.UWP.ViewModels
 
                 await AccountRepository.CriarAsync(Account);
             }
+
+            string title = "Conta salva com sucesso!";
+            string content = $"Sua conta {Account.Name} foi salva com sucesso.";
+
+            NotificationService.SendNotification(title, content, "CF-001", "Transaction", 1);
         }
     }
 }
