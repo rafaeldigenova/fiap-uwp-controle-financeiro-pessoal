@@ -24,7 +24,8 @@
         </Grid.RowDefinitions>
         <ScrollViewer Padding="12">
             <StackPanel>
-                <ComboBox Header="Categoria" ItemsSource="{x:Bind ViewModel.AccountTypes}" SelectedItem="{x:Bind ViewModel.Account.AccountType, Mode=TwoWay}">
+                <TextBox Header="Nome" Text="{x:Bind ViewModel.Account.Name, Mode=TwoWay}" Margin="0,12"/>
+                <ComboBox Header="Tipo da Conta" ItemsSource="{x:Bind ViewModel.AccountTypes}" SelectedItem="{x:Bind ViewModel.Account.AccountType, Mode=TwoWay}">
                     <DataTemplate x:DataType="models:AccountType">
                         <StackPanel>
                             <TextBlock Text="{x:Bind }" />

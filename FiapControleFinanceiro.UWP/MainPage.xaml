@@ -29,7 +29,7 @@
                         DefaultLabelPosition="Right"
                         Background="Transparent">
                         <AppBarButton Label="Nova Movimentação" Icon="Add" Click="NovaTransacaoAppBarButton_Click"/>
-                        <AppBarButton Label="Nova Conta" Icon="Add" Click="NovaTransacaoAppBarButton_Click"/>
+                        <AppBarButton Label="Nova Conta" Icon="Add" Click="NewAccountAppBarButton_Click"/>
                     </CommandBar>
                 </Grid>
             </DataTemplate>
