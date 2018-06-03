@@ -1,5 +1,6 @@
 ﻿using FiapControleFinanceiro.Dados;
 using FiapControleFinanceiro.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,11 @@ namespace FiapControleFinanceiro.UWP.Repository
 
         public override async Task CarregarTodosAsync()
         {
-            if (Items.Count > 0)
-            {
-                return;
-            }
-
             using (var context = new FinancialManagerDbContext())
             {
-                var accounts = context.Accounts.ToList();
+                Items.Clear();
+
+                var accounts = context.Accounts.Include(x => x.Transactions).ToList();
 
                 foreach (var account in accounts)
                 {

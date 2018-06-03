@@ -5,16 +5,45 @@ namespace FiapControleFinanceiro.Models
 {
     public class Transaction : NotifyableClass
     {
-        public int Id { get; set; }
+        private int _id;
+        public int Id
+        {
+            get { return _id; }
+            set { Set(ref _id, value); }
+        }
 
-        public DateTime CreatedDate { get; set; }
+        private DateTime _createdDate;
+
+        public DateTime CreatedDate
+        {
+            get { return _createdDate; }
+            set { Set(ref _createdDate, value); }
+        }
 
         public DateTime ProcessmentDate { get; set; }
 
-        public decimal Ammount { get; set; }
+        private decimal _ammount;
 
-        public int AccountId { get; set; }
+        public decimal Ammount
+        {
+            get { return _ammount; }
+            set { Set(ref _ammount, value); }
+        }
 
-        public Account Account { get; set; }
+        private int _accountId;
+
+        public int AccountId
+        {
+            get { return _accountId; }
+            set { Set(ref _accountId, value); }
+        }
+        
+        public virtual Account Account { get; set; }
+
+        public Transaction()
+        {
+            CreatedDate = DateTime.Now;
+            ProcessmentDate = DateTime.Now;
+        }
     }
 }

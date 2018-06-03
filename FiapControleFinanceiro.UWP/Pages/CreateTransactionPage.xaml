@@ -14,6 +14,7 @@
         <cvt:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSource"/>
         <cvt:NullToBooleanConverter x:Key="NullToBoolean" />
         <cvt:NullToVisibilityConverter x:Key="NullToVisibility" />
+        <cvt:DateTimeToDateOffsetConverter x:Key="DateTimeToDateOffset" /> 
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -23,30 +24,17 @@
         </Grid.RowDefinitions>
         <ScrollViewer Padding="12">
             <StackPanel>
-                <TextBox Header="Id" Text="{x:Bind ViewModel.Transaction.Id, Mode=TwoWay}" Margin="0,12"/>
-                <TextBox Header="Data de Criação" Text="{x:Bind ViewModel.Transaction.CreatedDate, Mode=TwoWay}" AcceptsReturn="True" 
-                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                         Height="200" Margin="0,12" />
-                <TextBox Header="Data de Processamento" Text="{x:Bind ViewModel.Transaction.ProcessmentDate, Mode=TwoWay, Converter={StaticResource TypeToObject}}" Margin="0,12"/>
-                <!--<ComboBox Header="Categoria" ItemsSource="{x:Bind ViewModel.Categorias}" SelectedItem="{x:Bind ViewModel.Receita.Categoria, Mode=TwoWay}">
-                    <DataTemplate x:DataType="models:Categoria">
-                        <StackPanel>
-                            <TextBlock Text="{x:Bind }" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ComboBox>-->
-                <TextBox Header="Preço" Text="{x:Bind ViewModel.Transaction.Id, Mode=TwoWay, Converter={StaticResource TypeToObject}}" Margin="0,12"/>
+                <DatePicker Header="Data de Processamento" Date="{x:Bind ViewModel.Transaction.ProcessmentDate, Mode=TwoWay , Converter={StaticResource DateTimeToDateOffset}}" Margin="0,12"/>
+                <ComboBox Header="Conta" ItemsSource="{x:Bind ViewModel.Accounts}" SelectedItem="{x:Bind ViewModel.Transaction.Account, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:Account">
+                            <TextBlock Text="{x:Bind Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBox Header="Preço" Text="{x:Bind ViewModel.Transaction.Ammount, Mode=TwoWay, Converter={StaticResource TypeToObject}}" Margin="0,12"/>
                 <StackPanel Margin="0,12">
-                    <!--<Image Height="200" Source="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource ByteArrayToImageSource}}"
-                        Visibility="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource NullToVisibility}}" Margin="4"/>-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <!--<Button Click="{x:Bind ViewModel.CarregarImagem}" Margin="100,0">
-                            <SymbolIcon Symbol="BrowsePhotos"/>
-                        </Button>
-                        <Button Click="{x:Bind ViewModel.ExcluirImagem}"
-                             IsEnabled="{x:Bind ViewModel.Receita.ImagemBytes, Mode=OneWay, Converter={StaticResource NullToBoolean}}">
-                            <SymbolIcon Symbol="Delete"/>
-                        </Button>-->
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

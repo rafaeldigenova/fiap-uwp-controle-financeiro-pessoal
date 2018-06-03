@@ -3,18 +3,22 @@ using Windows.UI.Xaml.Data;
 
 namespace FiapControleFinanceiro.UWP.Converters
 {
-    public class DateTimeToStringConverter : IValueConverter
+    public class DateTimeToDateOffsetConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             DateTime.TryParse(System.Convert.ToString(value), out DateTime valor);
 
-            return valor.ToString("dd/MM/yyyy HH:mm");
+            var dateString = valor.ToString("yyyy-MM-ddTHH:mm:ssZ");
+
+            return DateTimeOffset.Parse(dateString);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            DateTimeOffset.TryParse(System.Convert.ToString(value), out DateTimeOffset valor);
+
+            return valor.DateTime;
         }
     }
 }

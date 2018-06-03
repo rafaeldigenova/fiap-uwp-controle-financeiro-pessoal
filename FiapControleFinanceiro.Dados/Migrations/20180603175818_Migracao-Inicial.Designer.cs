@@ -12,8 +12,8 @@ using System;
 namespace FiapControleFinanceiro.Dados.Migrations
 {
     [DbContext(typeof(FinancialManagerDbContext))]
-    [Migration("20180603045023_account-columns-update")]
-    partial class accountcolumnsupdate
+    [Migration("20180603175818_Migracao-Inicial")]
+    partial class MigracaoInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

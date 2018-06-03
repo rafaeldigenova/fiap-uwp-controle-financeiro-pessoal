@@ -24,7 +24,7 @@ namespace FiapControleFinanceiro.UWP.ViewModels
         {
             var listView = (ListView)sender;
 
-            if (listView.SelectedItem == null || listView.SelectedItem as Account == null)
+            if (listView.SelectedItem == null || listView.SelectedItem as Transaction == null)
             {
                 return;
             }

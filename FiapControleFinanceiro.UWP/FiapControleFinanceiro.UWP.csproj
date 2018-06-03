@@ -96,9 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ByteArrayToImageSourceConverter.cs" />
-    <Compile Include="Converters\DateTimeToStringConverter.cs" />
+    <Compile Include="Converters\DateTimeToDateOffsetConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\DecimalToStringPrecoConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\RadioButtonToNullableIntConverter.cs" />
     <Compile Include="Converters\TypeToObjectConverter.cs" />

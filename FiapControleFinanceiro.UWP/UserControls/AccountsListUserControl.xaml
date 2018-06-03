@@ -10,10 +10,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <cvt:DecimalToStringPrecoConverter x:Key="DecimalToStringPreco" />
-    </UserControl.Resources>
-
     <Grid Margin="12">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroupMinWidth">
@@ -54,6 +50,6 @@
         <TextBlock x:Name="lblId" Text="{x:Bind Account.Id, Mode=OneWay}" Grid.Column="0"/>
         <TextBlock x:Name="cbAccountType" Text="{x:Bind Account.AccountType, Mode=OneWay}" Grid.Column="1" />
         <TextBlock x:Name="lblName" Text="{x:Bind Account.Name, Mode=OneWay}" Grid.Column="2"/>
-        <TextBlock x:Name="lblBalance" Text="{x:Bind Account.CurentBalance, Mode=OneWay, Converter={StaticResource DecimalToStringPreco}}" Grid.Column="3" />
+        <TextBlock x:Name="lblBalance" Text="{x:Bind Account.CurentBalance, Mode=OneWay }" Grid.Column="3" />
     </Grid>
 </UserControl>

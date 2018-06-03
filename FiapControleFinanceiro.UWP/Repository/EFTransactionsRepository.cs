@@ -1,5 +1,6 @@
 ﻿using FiapControleFinanceiro.Dados;
 using FiapControleFinanceiro.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +21,22 @@ namespace FiapControleFinanceiro.UWP.Repository
             using (var context = new FinancialManagerDbContext())
             {
                 context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                try
+                {
+                    context.Accounts.Attach(entity.Account);
+                }
+                catch { }
                 await context.SaveChangesAsync();
             }
         }
 
         public override async Task CarregarTodosAsync()
         {
-            if (Items.Count > 0)
-            {
-                return;
-            }
-
             using (var context = new FinancialManagerDbContext())
             {
-                var transactions = context.Transactions.ToList();
+                Items.Clear();
+
+                var transactions = context.Transactions.Include(x => x.Account).ToList();
 
                 foreach (var transaction in transactions)
                 {
@@ -47,6 +50,11 @@ namespace FiapControleFinanceiro.UWP.Repository
             using (var context = new FinancialManagerDbContext())
             {
                 Items.Add(entity);
+                try
+                {
+                    context.Accounts.Attach(entity.Account);
+                }
+                catch { }
                 context.Transactions.Add(entity);
 
                 await context.SaveChangesAsync();

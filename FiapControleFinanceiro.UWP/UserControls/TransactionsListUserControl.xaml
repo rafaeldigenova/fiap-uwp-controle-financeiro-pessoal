@@ -11,41 +11,17 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <cvt:DecimalToStringPrecoConverter x:Key="DecimalToStringPreco" />
-        <cvt:DateTimeToStringConverter x:Key="DateTimeToString" />
+        <cvt:DateTimeToDateOffsetConverter x:Key="DateTimeToString" />
     </UserControl.Resources>
 
     <Grid Margin="12">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateGroupMinWidth">
-                <VisualState x:Name="VisualStateMinWidth1">
-                    <VisualState.Setters>
-                        <Setter Target="lblId.(Grid.Column)" Value="0"/>
-                        <Setter Target="lblId.(Grid.ColumnSpan)" Value="2"/>
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1"/>
-                    </VisualState.StateTriggers>
-                </VisualState>
-                <VisualState x:Name="VisualStateMinWidth640">
-                    <VisualState.Setters>
-                        <Setter Target="imgReceita.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="lblId.(Grid.Column)" Value="1"/>
-                        <Setter Target="lblId.(Grid.ColumnSpan)" Value="1"/>
-                    </VisualState.Setters>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640"/>
-                    </VisualState.StateTriggers>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="lblId" Text="{x:Bind Transaction.Account.Name, Mode=OneWay}" Grid.Column="0"/>
-        <TextBlock Text="{x:Bind Transaction.ProcessmentDate, Mode=OneWay, Converter={StaticResource }}" Grid.Column="1" />
-        <TextBlock Text="{x:Bind Transaction.Ammount, Mode=OneWay, Converter={StaticResource DecimalToStringPreco}}" Grid.Column="2" />
+        <TextBlock x:Name="lblAccountName" Text="{x:Bind Transaction.Account.Name, Mode=OneWay}" Grid.Column="0"/>
+        <TextBlock x:Name="lblProcessmentDate" Text="{x:Bind Transaction.ProcessmentDate, Mode=OneWay }" Grid.Column="1" />
+        <TextBlock x:Name="lblAmmount" Text="{x:Bind Transaction.Ammount, Mode=OneWay }" Grid.Column="2" />
     </Grid>
 </UserControl>

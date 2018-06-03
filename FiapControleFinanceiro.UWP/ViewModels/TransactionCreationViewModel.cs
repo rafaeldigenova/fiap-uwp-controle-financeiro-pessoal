@@ -19,6 +19,7 @@ namespace FiapControleFinanceiro.UWP.ViewModels
         }
 
         private EFTransactionsRepository TransactionRepository { get; set; } = EFTransactionsRepository.Instance;
+        private EFAccountRepository AccountRepository { get; set; } = EFAccountRepository.Instance;
 
         private Transaction _transaction;
 
@@ -30,10 +31,15 @@ namespace FiapControleFinanceiro.UWP.ViewModels
 
         public bool RegistroExcluido { get; set; }
 
-        //public IEnumerable<Categoria> Categorias => Receita.Categoria.GetValores<Categoria>();
+        public IEnumerable<Account> Accounts { get; set; }
 
-        public void CarregarTransacao(int id)
+        public async Task CarregarTransacao(int id)
         {
+            await TransactionRepository.CarregarTodosAsync();
+            await AccountRepository.CarregarTodosAsync();
+
+            Accounts = AccountRepository.Items.ToList();
+
             Transaction = TransactionRepository.Items.FirstOrDefault(x => x.Id == id);
 
             if (Transaction == null)

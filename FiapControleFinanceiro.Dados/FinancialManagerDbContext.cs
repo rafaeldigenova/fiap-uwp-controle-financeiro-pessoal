@@ -10,7 +10,7 @@ namespace FiapControleFinanceiro.Dados
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=minhasfinancas.db");
+            optionsBuilder.UseSqlite("Data Source=minhasfinancas3.db");
         }
     }
 }
