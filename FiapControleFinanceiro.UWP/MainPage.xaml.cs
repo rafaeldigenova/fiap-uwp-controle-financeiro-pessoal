@@ -80,6 +80,7 @@ namespace FiapControleFinanceiro.UWP
                     {typeof(TransactionsPage), "transactions"},
                     {typeof(StatementsPage), "statements"},
                     {typeof(CreateTransactionPage), ""},
+                    {typeof(EditAccountPage), ""},
                 };
 
                 String stringTag = lookup[ContentFrame.SourcePageType];
@@ -103,6 +104,13 @@ namespace FiapControleFinanceiro.UWP
             NavView.Header = "Nova Transação";
 
             NavigationService.Navigate<CreateTransactionPage>();
+        }
+
+        private void NewAccountAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavView.Header = "Nova Conta";
+
+            NavigationService.Navigate<EditAccountPage>();
         }
     }
 }

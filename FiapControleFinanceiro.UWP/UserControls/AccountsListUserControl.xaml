@@ -20,7 +20,9 @@
                 <VisualState x:Name="VisualStateMinWidth1">
                     <VisualState.Setters>
                         <Setter Target="lblId.(Grid.Column)" Value="0"/>
-                        <Setter Target="lblId.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="cbAccountType.(Grid.Column)" Value="1"/>
+                        <Setter Target="lblName.(Grid.Column)" Value="2"/>
+                        <Setter Target="lblBalance.(Grid.Column)" Value="3"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1"/>
@@ -28,9 +30,14 @@
                 </VisualState>
                 <VisualState x:Name="VisualStateMinWidth640">
                     <VisualState.Setters>
-                        <Setter Target="imgReceita.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="lblId.(Grid.Column)" Value="1"/>
+                        <Setter Target="lblId.(Grid.Column)" Value="0"/>
                         <Setter Target="lblId.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="cbAccountType.(Grid.Column)" Value="1"/>
+                        <Setter Target="cbAccountType.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="lblName.(Grid.Column)" Value="2"/>
+                        <Setter Target="lblName.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="lblBalance.(Grid.Column)" Value="3"/>
+                        <Setter Target="lblBalance.(Grid.ColumnSpan)" Value="1"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="640"/>
@@ -39,12 +46,14 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="lblId" Text="{x:Bind Account.Id, Mode=OneWay}" Grid.Column="1"/>
-        <TextBlock Text="{x:Bind Account.AccountType, Mode=OneWay}" Grid.Column="2" />
-        <TextBlock Text="{x:Bind Account.CurentBalance, Mode=OneWay, Converter={StaticResource DecimalToStringPreco}}" Grid.Column="3" />
+        <TextBlock x:Name="lblId" Text="{x:Bind Account.Id, Mode=OneWay}" Grid.Column="0"/>
+        <TextBlock x:Name="cbAccountType" Text="{x:Bind Account.AccountType, Mode=OneWay}" Grid.Column="1" />
+        <TextBlock x:Name="lblName" Text="{x:Bind Account.Name, Mode=OneWay}" Grid.Column="2"/>
+        <TextBlock x:Name="lblBalance" Text="{x:Bind Account.CurentBalance, Mode=OneWay, Converter={StaticResource DecimalToStringPreco}}" Grid.Column="3" />
     </Grid>
 </UserControl>

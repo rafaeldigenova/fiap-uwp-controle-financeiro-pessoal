@@ -21,16 +21,20 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="1" BorderBrush="Black"  BorderThickness="0,0,0,0.5">
+                            <Border Grid.Column="0" BorderBrush="Black"  BorderThickness="0,0,0,0.5">
                                 <TextBlock Text="Id" Margin="5,0,0,0" />
                             </Border>
-                            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,0,0.5">
                                 <TextBlock Text="Tipo da Conta" Margin="5,0,0,0"/>
+                            </Border>
+                            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                                <TextBlock Text="Nome da Conta" Margin="5,0,0,0"/>
                             </Border>
                             <Border Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,0,0.5">
                                 <TextBlock Text="Saldo" Margin="5,0,0,0"/>
