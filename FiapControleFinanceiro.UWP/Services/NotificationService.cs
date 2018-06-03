@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
@@ -6,26 +7,40 @@ namespace FiapControleFinanceiro.UWP.Services
 {
     public static class NotificationService
     {
-        public static void AgendarToastNotification(TimeSpan timeSpan)
+        public static void SendNotification(string title, string content, string tag, string group, int days)
         {
-            XmlDocument toastXml = new XmlDocument();
+            ToastVisual visual = new ToastVisual()
+            {
+                BindingGeneric = new ToastBindingGeneric()
+                {
+                    Children =
+                    {
+                        new AdaptiveText()
+                        {
+                            Text = title
+                        },
+                        new AdaptiveText()
+                        {
+                            Text = content
+                        }
+                    }
+                }
+            };
 
-            string toastXmlString =
-                $@"<toast scenario='alarm'>
-                <visual>
-                    <binding template='ToastGeneric'>
-                    <text>A hora do timer chegou!!!</text>
-                    </binding>
-                </visual>
-            </toast>";
+            ToastActionsCustom actions = new ToastActionsCustom();
 
-            toastXml.LoadXml(toastXmlString);
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = visual,
+                Actions = actions
+            };
 
-            var toastTime = DateTime.Now.Add(timeSpan);
+            var toast = new ToastNotification(toastContent.GetXml());
+            toast.ExpirationTime = DateTime.Now.AddDays(days);
+            toast.Tag = tag;
+            toast.Group = group;
 
-            var toast = new ScheduledToastNotification(toastXml, toastTime);
-
-            ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }
