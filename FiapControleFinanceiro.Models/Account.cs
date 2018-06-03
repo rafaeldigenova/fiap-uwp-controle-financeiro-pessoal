@@ -1,5 +1,4 @@
 ﻿using FiapControleFinanceiro.Models.Abstracts;
-using FiapControleFinanceiro.Models.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;

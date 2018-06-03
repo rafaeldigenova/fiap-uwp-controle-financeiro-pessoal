@@ -101,6 +101,7 @@
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\RadioButtonToNullableIntConverter.cs" />
     <Compile Include="Converters\TypeToObjectConverter.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -136,7 +137,7 @@
     <Compile Include="UserControls\AccountsListUserControl.xaml.cs">
       <DependentUpon>AccountsListUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AccountCreationViewModel.cs" />
+    <Compile Include="ViewModels\EditAccountViewModel.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
     <Compile Include="ViewModels\TransactionCreationViewModel.cs" />
   </ItemGroup>
@@ -262,9 +263,7 @@
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FiapControleFinanceiro.Dados\FiapControleFinanceiro.Dados.csproj">
       <Project>{A390D516-7604-4D9B-8914-E537C85684F4}</Project>

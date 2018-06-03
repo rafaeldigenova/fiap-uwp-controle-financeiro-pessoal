@@ -4,11 +4,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FiapControleFinanceiro.UWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:cvt="using:FiapControleFinanceiro.UWP.Converters"
+    xmlns:models="using:FiapControleFinanceiro.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Page.Resources>
+        <cvt:TypeToObjectConverter x:Key="TypeToObject"/>
+        <cvt:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSource"/>
+        <cvt:NullToBooleanConverter x:Key="NullToBoolean" />
+        <cvt:NullToVisibilityConverter x:Key="NullToVisibility" />
+    </Page.Resources>
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Padding="12">
+            <StackPanel>
+                <ComboBox Header="Categoria" ItemsSource="{x:Bind ViewModel.AccountTypes}" SelectedItem="{x:Bind ViewModel.Account.AccountType, Mode=TwoWay}">
+                    <DataTemplate x:DataType="models:AccountType">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind }" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox>
+            </StackPanel>
+        </ScrollViewer>
+        <CommandBar Grid.Row="1" Background="Transparent">
+            <AppBarButton Label="Excluir" Icon="Delete" Click="{x:Bind ViewModel.DeleteAccount}" />
+        </CommandBar>
     </Grid>
 </Page>

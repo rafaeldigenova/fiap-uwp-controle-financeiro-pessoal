@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FiapControleFinanceiro.Models.Enum
+namespace FiapControleFinanceiro.Models
 {
     public enum AccountType
     {
-        Corrente,
-        Poupanca,
-        Previdencia
+        Nenhum = 0,
+        Corrente = 1,
+        Poupanca = 2,
+        Previdencia =3
     }
 }
