@@ -55,9 +55,6 @@ namespace FiapControleFinanceiro.UWP
                 case "transactions":
                     NavigationService.Navigate<TransactionsPage>();
                     break;
-                case "statements":
-                    NavigationService.Navigate<StatementsPage>();
-                    break;
             }
         }
 
@@ -78,7 +75,6 @@ namespace FiapControleFinanceiro.UWP
                     {typeof(DashboardPage), "dashboard"},
                     {typeof(AccountsPage), "accounts"},
                     {typeof(TransactionsPage), "transactions"},
-                    {typeof(StatementsPage), "statements"},
                     {typeof(CreateTransactionPage), ""},
                     {typeof(EditAccountPage), ""},
                 };

@@ -25,6 +25,7 @@
         <ScrollViewer Padding="12">
             <StackPanel>
                 <DatePicker Header="Data de Processamento" Date="{x:Bind ViewModel.Transaction.ProcessmentDate, Mode=TwoWay , Converter={StaticResource DateTimeToDateOffset}}" Margin="0,12"/>
+                <TimePicker Header="Hora do Processamento" x:Name="timePicker" />
                 <ComboBox Header="Conta" ItemsSource="{x:Bind ViewModel.Accounts}" SelectedItem="{x:Bind ViewModel.Transaction.Account, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="models:Account">

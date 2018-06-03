@@ -37,13 +37,24 @@ namespace FiapControleFinanceiro.UWP.Pages
             {
                 WwwFormUrlDecoder uriDecoder = new WwwFormUrlDecoder(parameter.ToString());
                 var rule = uriDecoder.GetFirstValueByName("rule");
-                var tituloReceita = uriDecoder.GetFirstValueByName("tituloReceita");
+                var valor = uriDecoder.GetFirstValueByName("valor");
 
                 ViewModel.CarregarTransacao(0);
 
                 if (!string.IsNullOrWhiteSpace(rule))
                 {
+                    
                     ViewModel.Transaction.Id = 0;
+                    if (rule == "adicionarTransacao")
+                    {
+                        var valorDecimal = Decimal.TryParse(valor, out decimal valorResult);
+                        ViewModel.Transaction.Ammount = valorDecimal ? valorResult : 0m;
+                    }
+                    else if(rule == "abaterValor")
+                    {
+                        var valorDecimal = Decimal.TryParse(valor, out decimal valorResult);
+                        ViewModel.Transaction.Ammount = valorDecimal ? -valorResult : 0m;
+                    }
                 }
             }
             else
@@ -54,8 +65,12 @@ namespace FiapControleFinanceiro.UWP.Pages
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            if (!ViewModel.RegistroExcluido)
+            if (!ViewModel.RegistroExcluido) {
+
+                ViewModel.ConfigurarHora(timePicker.Time);
+
                 ViewModel.SalvarTransacao();
+            }
         }
     }
 }

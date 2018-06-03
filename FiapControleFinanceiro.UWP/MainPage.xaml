@@ -42,11 +42,6 @@
                     <FontIcon Glyph="&#xE80F;"/>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Extrato" Tag="statements">
-                <NavigationViewItem.Icon>
-                    <FontIcon Glyph="&#xE7C3;"/>
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
             <NavigationViewItem Icon="Calendar" Content="Contas" Tag="accounts"/>
             <NavigationViewItem Icon="Link" Content="Transações" Tag="transactions"/>
         </NavigationView.MenuItems>
