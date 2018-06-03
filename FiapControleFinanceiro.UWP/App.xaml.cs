@@ -1,8 +1,14 @@
 ﻿using FiapControleFinanceiro.Dados;
+using FiapControleFinanceiro.UWP.Pages;
+using FiapControleFinanceiro.UWP.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -34,7 +40,7 @@ namespace FiapControleFinanceiro.UWP
         /// serão usados, por exemplo, quando o aplicativo for iniciado para abrir um arquivo específico.
         /// </summary>
         /// <param name="e">Detalhes sobre a solicitação e o processo de inicialização.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -67,6 +73,71 @@ namespace FiapControleFinanceiro.UWP
                 }
                 // Verifique se a janela atual está ativa
                 Window.Current.Activate();
+
+                await InstallVoiceCommands();
+            }
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                Frame rootFrame = Window.Current.Content as Frame;
+
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (rootFrame == null)
+                {
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Load state from previously suspended application
+                    }
+
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
+                }
+
+                if (rootFrame.Content == null)
+                {
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    rootFrame.Navigate(typeof(MainPage), null);
+                }
+                // Ensure the current window is active
+                Window.Current.Activate();
+
+                var VoiceArgs = args as VoiceCommandActivatedEventArgs;
+                var Result = VoiceArgs.Result;
+
+                var text = Result.Text;
+                var rule = Result.RulePath?.FirstOrDefault() ?? "";
+
+                Result.SemanticInterpretation.Properties.TryGetValue("commandMode", out IReadOnlyList<string> commandMode);
+                Result.SemanticInterpretation.Properties.TryGetValue("valor", out IReadOnlyList<string> valor);
+
+                NavigationService.Navigate<CreateTransactionPage>($"rule={Result.RulePath?.FirstOrDefault() ?? ""}&valor={valor?.FirstOrDefault() ?? ""}");
+            }
+        }
+
+        private async Task InstallVoiceCommands()
+        {
+            try
+            {
+                StorageFile vcdStorageFile = await Package.Current.InstalledLocation.GetFileAsync(@"VoiceCommands.xml");
+                
+                await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.
+                    InstallCommandDefinitionsFromStorageFileAsync(vcdStorageFile);
+                
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Installing Voice Commands Failed: " + ex.ToString());
             }
         }
 

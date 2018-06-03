@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="pt-BR" Name="MinhasReceitasCommandSet_pt-br">
+    <AppName>Minhas Financas</AppName>
+    <Example> Adicionar transacao</Example>
+
+    <Command Name="adicionarTransacao">
+      <Example> Adicionar transacao </Example>
+      <ListenFor RequireAppName="ExplicitlySpecified">adicionar transacao [nas] {builtin:AppName}</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified">adicionar [o] montante [de] {valor} [nas] {builtin:AppName}</ListenFor>
+      <Feedback> Adicionando transação </Feedback>
+      <Navigate/>
+    </Command>
+
+    <Command Name="abaterValor">
+      <Example> Abater valor </Example>
+      <ListenFor RequireAppName="ExplicitlySpecified">abater [o] montante [de] {valor} [das] {builtin:AppName}</ListenFor>
+      <Feedback> Abatendo Valor </Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseTopic Label="valor" Scenario="Form Filling"/>
+
+  </CommandSet>
+</VoiceCommands>

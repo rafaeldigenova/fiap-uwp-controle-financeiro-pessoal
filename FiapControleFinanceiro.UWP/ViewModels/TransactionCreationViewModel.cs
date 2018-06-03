@@ -72,6 +72,13 @@ namespace FiapControleFinanceiro.UWP.ViewModels
             DataTransferManager.ShowShareUI();
         }
 
+        public void ConfigurarHora(TimeSpan time)
+        {
+            Transaction.ProcessmentDate = Transaction.ProcessmentDate.Date;
+            Transaction.ProcessmentDate = Transaction.ProcessmentDate.AddHours(time.Hours);
+            Transaction.ProcessmentDate = Transaction.ProcessmentDate.AddMinutes(time.Minutes);
+        }
+
         public async void SalvarTransacao()
         {
             if (TransactionRepository.Items.Any(r => r.Id == Transaction.Id))
