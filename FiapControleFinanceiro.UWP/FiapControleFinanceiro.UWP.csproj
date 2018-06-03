@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ByteArrayToImageSourceConverter.cs" />
+    <Compile Include="Converters\DateTimeToStringConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\DecimalToStringPrecoConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
@@ -137,6 +138,10 @@
     <Compile Include="UserControls\AccountsListUserControl.xaml.cs">
       <DependentUpon>AccountsListUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TransactionsListUserControl.xaml.cs">
+      <DependentUpon>TransactionsListUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TransactionsViewModel.cs" />
     <Compile Include="ViewModels\EditAccountViewModel.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -252,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AccountsListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TransactionsListUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
