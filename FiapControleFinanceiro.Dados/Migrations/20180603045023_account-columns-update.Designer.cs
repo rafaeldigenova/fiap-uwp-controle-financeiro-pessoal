@@ -12,9 +12,10 @@ using System;
 namespace FiapControleFinanceiro.Dados.Migrations
 {
     [DbContext(typeof(FinancialManagerDbContext))]
-    partial class FinancialManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180603045023_account-columns-update")]
+    partial class accountcolumnsupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

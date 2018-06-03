@@ -8,7 +8,8 @@ namespace FiapControleFinanceiro.Models
     public class Account : NotifyableClass
     {
         public int Id { get; set; }
-        public AccountType AccountType { get; set; }
+        public string Name { get; set; }
+        public AccountType AccountType { get; set; }        
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
         public decimal CurentBalance
