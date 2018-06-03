@@ -12,7 +12,7 @@ namespace FiapControleFinanceiro.UWP.Services
 
         public enum Configuracoes
         {
-            OrdemListaReceitas
+            Currency
         }
 
         public static T LerConfiguracao<T>(Configuracoes configuracao, T defaultValue)

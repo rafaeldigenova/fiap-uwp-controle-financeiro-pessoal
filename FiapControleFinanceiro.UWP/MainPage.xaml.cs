@@ -33,7 +33,7 @@ namespace FiapControleFinanceiro.UWP
 
             if (args.IsSettingsInvoked)
             {
-                NavigationService.Navigate<ConfigurationsPage>();
+                NavigationService.Navigate<SettingsPage>();
             }
             else
             {
@@ -67,7 +67,7 @@ namespace FiapControleFinanceiro.UWP
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                 ContentFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
 
-            if (ContentFrame.SourcePageType == typeof(ConfigurationsPage))
+            if (ContentFrame.SourcePageType == typeof(SettingsPage))
             {
                 NavView.SelectedItem = NavView.SettingsItem as NavigationViewItem;
             }
