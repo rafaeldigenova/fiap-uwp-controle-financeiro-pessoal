@@ -140,6 +140,7 @@
     <Compile Include="UserControls\TransactionsListUserControl.xaml.cs">
       <DependentUpon>TransactionsListUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DashBoardViewModel.cs" />
     <Compile Include="ViewModels\TransactionsViewModel.cs" />
     <Compile Include="ViewModels\EditAccountViewModel.cs" />
     <Compile Include="ViewModels\AccountsViewModel.cs" />

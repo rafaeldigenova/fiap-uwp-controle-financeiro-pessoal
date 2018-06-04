@@ -5,9 +5,175 @@
     xmlns:local="using:FiapControleFinanceiro.UWP.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FiapControleFinanceiro.Models"
+    xmlns:controls="using:FiapControleFinanceiro.UWP.UserControls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="42*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Contas" VerticalAlignment="Center" FontSize="28" HorizontalAlignment="Center"></TextBlock>
+        <ListView Name="lstAccounts" Grid.Row="1" ItemsSource="{x:Bind ViewModel.Accounts, Mode=OneWay}" >
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <UserControl>
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="VisualStateGroupMinWidthHeader">
+                                    <VisualState x:Name="VisualStateMinWidth1Header">
+                                        <VisualState.Setters>
+                                            <Setter Target="lblIdHeader.(Visibility)" Value="Collapsed"/>
+                                            <Setter Target="cbAccountTypeHeader.(Visibility)" Value="Collapsed"/>
+                                            <Setter Target="lblNameHeader.(Grid.Column)" Value="0"/>
+                                            <Setter Target="lblNameHeader.(Grid.ColumnSpan)" Value="2"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.Column)" Value="2"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.ColumnSpan)" Value="2"/>
+                                        </VisualState.Setters>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1"/>
+                                        </VisualState.StateTriggers>
+                                    </VisualState>
+                                    <VisualState x:Name="VisualStateMinWidth640Header">
+                                        <VisualState.Setters>
+                                            <Setter Target="lblIdHeader.(Grid.Column)" Value="0"/>
+                                            <Setter Target="lblIdHeader.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="lblNameHeader.(Grid.Column)" Value="1"/>
+                                            <Setter Target="lblNameHeader.(Grid.ColumnSpan)" Value="2"/>
+                                            <Setter Target="cbAccountTypeHeader.(Visibility)" Value="Collapsed"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.Column)" Value="3"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.ColumnSpan)" Value="1"/>
+                                        </VisualState.Setters>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="640"/>
+                                        </VisualState.StateTriggers>
+                                    </VisualState>
+                                    <VisualState x:Name="VisualStateMinWidth860Header">
+                                        <VisualState.Setters>
+                                            <Setter Target="lblIdHeader.(Grid.Column)" Value="0"/>
+                                            <Setter Target="lblIdHeader.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="lblNameHeader.(Grid.Column)" Value="1"/>
+                                            <Setter Target="lblNameHeader.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="cbAccountTypeHeader.(Grid.Column)" Value="2"/>
+                                            <Setter Target="cbAccountTypeHeader.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.Column)" Value="3"/>
+                                            <Setter Target="lblBalanceHeader.(Grid.ColumnSpan)" Value="1"/>
+                                        </VisualState.Setters>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="860"/>
+                                        </VisualState.StateTriggers>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="lblIdHeader" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,0,0.5" >
+                                <TextBlock Text="Id" Margin="5,0,0,0" />
+                            </Border>
+                            <Border x:Name="lblNameHeader" Grid.Column="1"  BorderBrush="Black" BorderThickness="0,0,0,0.5" >
+                                <TextBlock Text="Nome" Margin="5,0,0,0"/>
+                            </Border>
+                            <Border x:Name="cbAccountTypeHeader" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                                <TextBlock  Text="Tipo da Conta" Margin="5,0,0,0"/>
+                            </Border>
+                            <Border x:Name="lblBalanceHeader" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                                <TextBlock  Text="Saldo" Margin="5,0,0,0"/>
+                            </Border>
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Account">
+                    <controls:AccountsListUserControl Account="{x:Bind }" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.FooterTemplate>
+                <DataTemplate>
+                    <Button Content="Ver Mais" Click="AccountsVerMais_Clicked"></Button>
+                </DataTemplate>
+            </ListView.FooterTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <TextBlock Grid.Row="2" Text="Transações" VerticalAlignment="Center" FontSize="28" HorizontalAlignment="Center"></TextBlock>
+        <ListView Name="listTransactions" Grid.Row="3" ItemsSource="{x:Bind ViewModel.Transactions, Mode=OneWay}" >
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <UserControl>
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="VisualStateGroupMinWidth">
+                                    <VisualState x:Name="VisualStateMinWidth1">
+                                        <VisualState.Setters>
+                                            <Setter Target="lblProcessmentDate.(Visibility)" Value="Collapsed"/>
+                                            <Setter Target="lblAccountName.(Grid.Column)" Value="0"/>
+                                            <Setter Target="lblAccountName.(Grid.ColumnSpan)" Value="2"/>
+                                            <Setter Target="lblAmmount.(Grid.Column)" Value="2"/>
+                                            <Setter Target="lblAmmount.(Grid.ColumnSpan)" Value="1"/>
+                                        </VisualState.Setters>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1"/>
+                                        </VisualState.StateTriggers>
+                                    </VisualState>
+                                    <VisualState x:Name="VisualStateMinWidth640Header">
+                                        <VisualState.Setters>
+                                            <Setter Target="lblAccountName.(Grid.Column)" Value="0"/>
+                                            <Setter Target="lblAccountName.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="lblProcessmentDate.(Grid.Column)" Value="1"/>
+                                            <Setter Target="lblProcessmentDate.(Grid.ColumnSpan)" Value="1"/>
+                                            <Setter Target="lblAmmount.(Grid.Column)" Value="2"/>
+                                            <Setter Target="lblAmmount.(Grid.ColumnSpan)" Value="1"/>
+                                        </VisualState.Setters>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="640"/>
+                                        </VisualState.StateTriggers>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="lblAccountName" Grid.Column="0" BorderBrush="Black"  BorderThickness="0,0,0,0.5">
+                                <TextBlock Text="Conta" Margin="5,0,0,0" />
+                            </Border>
+                            <Border x:Name="lblProcessmentDate" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                                <TextBlock Text="Data da transação" Margin="5,0,0,0"/>
+                            </Border>
+                            <Border x:Name="lblAmmount" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,0,0.5">
+                                <TextBlock Text="Valor" Margin="5,0,0,0"/>
+                            </Border>
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Transaction">
+                    <controls:TransactionsListUserControl Transaction="{x:Bind }" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.FooterTemplate>
+                <DataTemplate>
+                    <Button Content="Ver Mais" Click="TransactionsVerMais_Clicked"></Button>
+                </DataTemplate>
+            </ListView.FooterTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </Page>
