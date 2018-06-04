@@ -1,6 +1,7 @@
 ﻿using FiapControleFinanceiro.Models.Abstracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace FiapControleFinanceiro.Models
@@ -29,6 +30,9 @@ namespace FiapControleFinanceiro.Models
             get { return _accountType; }
             set { Set(ref _accountType, value); }
         }
+
+        [NotMapped]
+        public string Currency { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
 

@@ -51,6 +51,10 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="lblAccountName" Text="{x:Bind Transaction.Account.Name, Mode=OneWay}" Grid.Column="0"/>
         <TextBlock x:Name="lblProcessmentDate" Text="{x:Bind Transaction.ProcessmentDate, Mode=OneWay }" Grid.Column="1" />
-        <TextBlock x:Name="lblAmmount" Text="{x:Bind Transaction.Ammount, Mode=OneWay }" Grid.Column="2" />
+        <TextBlock x:Name="lblAmmount" Grid.Column="2">
+            <Run Text="{x:Bind Transaction.Account.Currency, Mode=OneWay}"/>
+            <Run Text=" "/>
+            <Run Text="{x:Bind Transaction.Ammount, Mode=OneWay}"/>
+        </TextBlock>
     </Grid>
 </UserControl>

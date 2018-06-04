@@ -66,6 +66,10 @@
         <TextBlock x:Name="lblId" Text="{x:Bind Account.Id, Mode=OneWay}" Grid.Column="0" />
         <TextBlock x:Name="lblName" Text="{x:Bind Account.Name, Mode=OneWay}" Grid.Column="1" />
         <TextBlock x:Name="cbAccountType" Text="{x:Bind Account.AccountType, Mode=OneWay}" Grid.Column="2" />
-        <TextBlock x:Name="lblBalance" Text="{x:Bind Account.CurentBalance, Mode=OneWay }" Grid.Column="3" />
+        <TextBlock x:Name="lblBalance" Grid.Column="3">
+            <Run Text="{x:Bind Account.Currency, Mode=OneWay}"/>
+            <Run Text=" "/>
+            <Run Text="{x:Bind Account.CurentBalance, Mode=OneWay}"/>
+        </TextBlock>
     </Grid>
 </UserControl>
